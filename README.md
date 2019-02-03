@@ -1,7 +1,7 @@
 # Deep-HC
 
-# Envoriments
-## Language
+It is a framwork about clsssification
+
+## Envoriments
 Python 3.6 or more
-## Framewrok
 Pytorch 1.0
