@@ -1,2 +1,7 @@
 # Deep-HC
-I can not tell anything
+
+# Envoriments
+## Language
+Python 3.6 or more
+## Framewrok
+Pytorch 1.0
