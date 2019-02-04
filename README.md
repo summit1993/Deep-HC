@@ -1,6 +1,6 @@
 # Deep-HC
 
-It is a framwork about clsssification
+Hierarchical Classification Model with Deep Version
 
 ## Envoriments
 Python 3.6 or more
