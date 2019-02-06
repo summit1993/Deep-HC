@@ -3,6 +3,7 @@ import torch.nn as nn
 import torchvision
 import torchvision.transforms as transforms
 from torchvision.models import resnet18
+from torchvision.models import resnet101
 import torch.optim as optim
 import os
 
@@ -32,13 +33,16 @@ testloader = torch.utils.data.DataLoader(testset, batch_size=BATCH_SIZE,
 classes = ('plane', 'car', 'bird', 'cat',
            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
-net = resnet18(pretrained=True)
+# net = resnet18(pretrained=True)
+net = resnet101(pretrained=True)
 net.avgpool = nn.AdaptiveAvgPool2d(1)
 net.fc = nn.Linear(net.fc.in_features, NUM_CLASSES)
 net = net.to(device)
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
+
+fw = open('cifar10_resnet101.txt', 'wb')
 
 for epoch in range(NUM_CLASSES):  # loop over the dataset multiple times
 
@@ -76,6 +80,9 @@ for epoch in range(NUM_CLASSES):  # loop over the dataset multiple times
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
             correct += (predicted == labels).sum()
-        print('Test acc：%.3f%%' % (100 * correct / total))
+        acc = 100 * correct / total
+        print('Test acc：%.3f%%' % (acc))
+        fw.write(str(epoch) + '\t' + str(acc) + '\n')
 
+fw.close()
 print('Finished Training')
