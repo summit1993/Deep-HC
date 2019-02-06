@@ -60,10 +60,24 @@ for epoch in range(EPOCH_NUM):  # loop over the dataset multiple times
 
         # print statistics
         running_loss += loss.item()
-        if i % 100 == 99:    # print every 2000 mini-batches
+        if i % 100 == 99:    # print every 100 mini-batches
             print('[%d, %5d] loss: %.3f' %
                   (epoch + 1, i + 1, running_loss / 100))
             running_loss = 0.0
+
+    with torch.no_grad():
+        correct = 0
+        total = 0
+        for data in testloader:
+            net.eval()
+            images, labels = data
+            images, labels = images.to(device), labels.to(device)
+            outputs = net(images)
+            # 取得分最高的那个类 (outputs.data的索引号)
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum()
+        print('Test acc：%.3f%%' % (100 * correct / total))
 
 print('Finished Training')
 
