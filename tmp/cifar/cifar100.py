@@ -4,11 +4,14 @@ import torchvision
 import torchvision.transforms as transforms
 from torchvision.models import resnet18
 import torch.optim as optim
-import torch.nn.functional as F
+import os
+
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 NUM_CLASSES = 100
 EPOCH_NUM = 5
-BATCH_SIZE = 64
+BATCH_SIZE = 128
+
 
 transform = transforms.Compose(
     [transforms.ToTensor(),
@@ -31,7 +34,6 @@ classes = ('plane', 'car', 'bird', 'cat',
 net = resnet18(pretrained=True)
 net.avgpool = nn.AdaptiveAvgPool2d(1)
 net.fc = nn.Linear(net.fc.in_features, NUM_CLASSES)
-
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
@@ -56,7 +58,7 @@ for epoch in range(NUM_CLASSES):  # loop over the dataset multiple times
         running_loss += loss.item()
         if i % 100 == 99:    # print every 2000 mini-batches
             print('[%d, %5d] loss: %.3f' %
-                  (epoch + 1, i + 1, running_loss / 2000))
+                  (epoch + 1, i + 1, running_loss / 100))
             running_loss = 0.0
 
 print('Finished Training')
