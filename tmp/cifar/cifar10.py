@@ -8,6 +8,8 @@ import os
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 NUM_CLASSES = 10
 EPOCH_NUM = 5
 BATCH_SIZE = 128
@@ -33,6 +35,7 @@ classes = ('plane', 'car', 'bird', 'cat',
 net = resnet18(pretrained=True)
 net.avgpool = nn.AdaptiveAvgPool2d(1)
 net.fc = nn.Linear(net.fc.in_features, NUM_CLASSES)
+net = net.to(device)
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
@@ -43,6 +46,7 @@ for epoch in range(NUM_CLASSES):  # loop over the dataset multiple times
     for i, data in enumerate(trainloader, 0):
         # get the inputs
         inputs, labels = data
+        inputs, labels = inputs.to(device), labels.to(device)
 
         # zero the parameter gradients
         optimizer.zero_grad()
