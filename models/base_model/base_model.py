@@ -1,12 +1,15 @@
 from backbone.resnet import *
 
-switch={'resnet-18':lambda num_classes:resnet18(pretraine=True, num_classes=num_classes),
-        'resnet-34': lambda num_classes:resnet34(pretraine=True, num_classes=num_classes),
-        'resnet-50':lambda num_classes:resnet50(pretraine=True, num_classes=num_classes),
-        'resnet-101':lambda num_classes:resnet101(pretraine=True, num_classes=num_classes),
-        'resnet-152': lambda num_classes: resnet152(pretraine=True, num_classes=num_classes)}
+switch={'resnet-18':lambda :resnet18(pretrained=True),
+        'resnet-34': lambda :resnet34(pretrained=True),
+        'resnet-50':lambda :resnet50(pretrained=True),
+        'resnet-101':lambda :resnet101(pretrained=True),
+        'resnet-152': lambda : resnet152(pretrained=True)}
 
 class Base_Model:
-    def __init__(self, back_bone_name='resnet-101', num_classes=-1):
-        self.back_bone = switch[back_bone_name](num_classes)
-        # here to go
+    def __init__(self, back_bone_name='resnet-101'):
+        self.back_bone = switch[back_bone_name]()
+        self.extract_feature_num = self.back_bone.final_feature_num
+
+        # fc = nn.Linear(self.model.final_feature_num, num_classes)
+        # self.model.add_module('fc', fc)
