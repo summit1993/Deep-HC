@@ -112,9 +112,10 @@ class ResNet(nn.Module):
         self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
         # self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         self.avgpool = nn.AdaptiveAvgPool2d(1)
+        self.final_feature_num =512 * block.expansion
         self.has_fc = False
         if num_classes > 0:
-            self.fc = nn.Linear(512 * block.expansion, num_classes)
+            self.fc = nn.Linear(self.final_feature_num, num_classes)
             self.has_fc = True
 
         for m in self.modules():
