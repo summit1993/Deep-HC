@@ -6,17 +6,12 @@ import os
 import scipy.io
 
 class MyDataset(Dataset):
-    def __init__(self, file_name, image_dir, transform, train=True):
+    def __init__(self, image_list, labels, image_dir, transform, train=True):
         self.transform = transform
         self.image_dir = image_dir
         self.train = train
-        self.labels = []
-        self.image_list = []
-        with open(file_name) as f:
-            for line in f.readlines():
-                line = line.split()
-                self.image_list.append(line[0])
-                self.labels.append(int(line[1]))
+        self.labels = labels
+        self.image_list = image_list
 
     def __len__(self):
         return len(self.labels)
@@ -29,6 +24,24 @@ class MyDataset(Dataset):
             return img, self.labels[item]
         else:
             return img
+
+def get_image_names_and_labels_from_file(file_name):
+    image_list = []
+    labels = []
+    with open(file_name) as f:
+        for line in f.readlines():
+            line = line.split()
+            image_list.append(line[0])
+            labels.append(int(line[1]))
+    return image_list, labels
+
+def split_data_set(all_index, total_folds, test_fold):
+    samples_counts = len(all_index)
+    fold_size = int(samples_counts / total_folds)
+    end_n = min(samples_counts, (test_fold + 1) * fold_size)
+    test_index = all_index[test_fold * fold_size: end_n]
+    train_index = list(set(all_index) - set(test_index))
+    return train_index, test_index
 
 def calculate_rgb_mean_and_std(img_dir, img_size=224):
     img_list = os.listdir(img_dir)
