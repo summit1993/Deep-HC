@@ -3,7 +3,7 @@ import torchvision.transforms as transforms
 import os
 
 EPOCH_NUM = 50
-BATCH_SIZE = 128
+BATCH_SIZE = 4
 BACKBONE_NAME = 'resnet-50'
 SHOW_ITERS = 10
 
