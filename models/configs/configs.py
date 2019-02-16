@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import torchvision.transforms as transforms
 
-img_size=244
+img_size=224
 images_states = {}
 images_states['morph'] = {}
 images_states['morph']['mean'] = [0.56674693, 0.49170429, 0.46870997]
