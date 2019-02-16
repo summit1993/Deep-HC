@@ -1,4 +1,5 @@
-from resnet import *
+# -*- coding: UTF-8 -*-
+from backbone.resnet import *
 
 Backbone = {'resnet-18':lambda :resnet18(pretrained=True),
         'resnet-34': lambda :resnet34(pretrained=True),
