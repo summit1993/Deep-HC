@@ -13,7 +13,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 NUM_CLASSES = 10
 EPOCH_NUM = 5
-BATCH_SIZE = 128
+BATCH_SIZE = 4
 
 
 transform = transforms.Compose(

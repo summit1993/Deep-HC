@@ -8,7 +8,7 @@ BATCH_SIZE = 128
 BACKBONE_NAME = 'resnet-101'
 SHOW_ITERS = 10
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+#device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 img_size=224
 images_states = {}

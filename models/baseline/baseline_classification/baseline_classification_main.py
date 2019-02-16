@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-import torch
+import os
 import torch.optim as optim
 from torch.utils.data import DataLoader
 
@@ -7,9 +7,11 @@ from baseline.baseline_classification.baseline_classification import *
 from utilities.common_tools import MyDataset
 from configs.configs import *
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "6"
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 DATA_SET_NAME = 'morph'
 DATA_SET_INFO_DICT = get_dataset_info(DATA_SET_NAME)
-
 
 
 trainset = MyDataset(DATA_SET_INFO_DICT['info_file'],
