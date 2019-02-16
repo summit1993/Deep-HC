@@ -9,8 +9,6 @@ SHOW_ITERS = 10
 
 TOTAL_FOLDS = 10
 
-#device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 img_size=224
 images_states = {}
 images_states['morph'] = {}
@@ -20,6 +18,7 @@ images_states['morph']['std'] = [0.0664503, 0.05524194, 0.05015584]
 def get_dataset_info(data_set_name):
     info_dict = {}
     if data_set_name == 'morph':
+        info_dict['name'] = 'morph'
         info_dict['label_num'] = 78
         root_dir = 'D:\\program\\deep_learning\\Deep-HC\\Deep-HC\\data\\morph_50000\\'
         info_dict['info_file'] = os.path.join(root_dir, 'morph_50000_info.txt')

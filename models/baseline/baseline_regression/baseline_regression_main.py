@@ -2,12 +2,12 @@
 import torch
 import torch.optim as optim
 
-from baseline.baseline_classification.baseline_classification import *
+from baseline.baseline_regression.baseline_regresssion import *
 from utilities.common_tools import *
 from configs.configs import *
 from utilities.my_metrics import *
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "6"
+os.environ["CUDA_VISIBLE_DEVICES"] = "8"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 TEST_FOLD = 0
@@ -17,10 +17,10 @@ DATA_SET_INFO_DICT = get_dataset_info(DATA_SET_NAME)
 trainloader, testloader = get_train_test_data_loader(DATA_SET_INFO_DICT,
                                                      TOTAL_FOLDS, TEST_FOLD)
 
-model = BaselineClassificationModel(BACKBONE_NAME, DATA_SET_INFO_DICT['label_num'])
+model = BaselineRegressionModel(BACKBONE_NAME)
 model = model.to(device)
 
-criterion = nn.CrossEntropyLoss()
+criterion = nn.MSELoss()
 # optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
@@ -33,7 +33,7 @@ if __name__ == '__main__':
             images, labels = images.to(device), labels.to(device)
             optimizer.zero_grad()
             outputs = model(images)
-            loss = criterion(outputs, labels)
+            loss = criterion(outputs, labels.float())
             loss.backward()
             optimizer.step()
             running_loss += loss.item()
@@ -51,12 +51,12 @@ if __name__ == '__main__':
                 images, labels = test_data
                 images, labels = images.to(device), labels.to(device)
                 outputs = model(images)
-                _, predicted = torch.max(outputs.data, 1)
+                predicted = outputs.long()
                 mae_sum += MAE_sum(labels, predicted)
                 total_count += len(labels)
-            mae = mae_sum / total_count
-            print('Epoch: %d, MAE: %.3f'%(epoch + 1, mae))
-            log_file.write(str(epoch + 1) + '\t' + str(mae) + '\n')
-        print('*' * 10, 'Bye, Poker', '*' * 10, '\n')
+                mae = mae_sum / total_count
+                print('Epoch: %d, MAE: %.3f' % (epoch + 1, mae))
+                log_file.write(str(epoch + 1) + '\t' + str(mae) + '\n')
+            print('*' * 10, 'Bye, Poker', '*' * 10, '\n')
 
-    log_file.close()
+        log_file.close()

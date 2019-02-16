@@ -14,7 +14,3 @@ class BaselineClassificationModel(nn.Module):
         x = self.backbone(x)
         x = self.fc(x)
         return x
-
-
-if __name__ == '__main__':
-    model = BaselineClassificationModel('resnet-101', 90)
