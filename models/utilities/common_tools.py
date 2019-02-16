@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import numpy as np
 from torch.utils.data import Dataset
-import cv2
+from PIL import Image
 import os
 import scipy.io
 
@@ -23,8 +23,7 @@ class MyDataset(Dataset):
 
     def __getitem__(self, item):
         image_path = os.path.join(self.image_dir, self.image_list[item])
-        img = cv2.imread(image_path)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        img = Image.open(image_path)
         img = self.transform(img)
         if self.train:
             return img, self.labels[item]
@@ -38,18 +37,21 @@ def calculate_rgb_mean_and_std(img_dir, img_size=224):
     img_count = len(img_list)
     for img_name in img_list:
         img_path = os.path.join(img_dir, img_name)
-        img = cv2.imread(img_path)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        img = cv2.resize(img, (img_size, img_size))
+        # img = cv2.imread(img_path)
+        # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        # img = cv2.resize(img, (img_size, img_size))
+        img = Image.open(img_path)
+        img = img.resize((img_size, img_size))
+        img = np.array(img, dtype=np.float32)
         img = img / 255.0
         for i in range(3):
             img_mean[i] = img_mean[i] + img[:, :, i].mean()
     img_mean = img_mean / img_count
     for img_name in img_list:
         img_path = os.path.join(img_dir, img_name)
-        img = cv2.imread(img_path)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        img = cv2.resize(img, (img_size, img_size))
+        img = Image.open(img_path)
+        img = img.resize((img_size, img_size))
+        img = np.array(img, dtype=np.float32)
         img = img / 255.0
         for i in range(3):
             img_std[i] = img_std[i] + ((img[:, :, i] - img_mean[i]) ** 2).sum()
@@ -64,4 +66,5 @@ def get_dataset_info(imdb_file_name, save_name):
         for i in range(len(labels)):
             label = str(int(labels[i]))
             img_name = str(img_names[i][0])
+            img_name = img_name.split('/')[-1]
             fw.write(img_name + ' ' + label + '\n')

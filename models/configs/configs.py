@@ -1,16 +1,20 @@
 # -*- coding: UTF-8 -*-
 import torchvision.transforms as transforms
 import os
+import torch
 
 EPOCH_NUM = 50
 BATCH_SIZE = 128
 BACKBONE_NAME = 'resnet-101'
+SHOW_ITERS = 10
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 img_size=224
 images_states = {}
 images_states['morph'] = {}
-images_states['morph']['mean'] = [0.56674693, 0.49170429, 0.46870997]
-images_states['morph']['std'] = [0.06605322, 0.05489436, 0.04973615]
+images_states['morph']['mean'] = [0.56726776, 0.49219804, 0.46919969]
+images_states['morph']['std'] = [0.0664503, 0.05524194, 0.05015584]
 
 def get_dataset_info(data_set_name):
     info_dict = {}

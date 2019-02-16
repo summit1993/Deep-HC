@@ -15,7 +15,3 @@ from utilities.common_tools import *
 # print(label, name)
 
 get_dataset_info('morph_imdb.mat', 'morph_info.txt')
-
-with open('morph_info.txt') as f:
-    lines = f.readlines()
-    print(lines[0])
