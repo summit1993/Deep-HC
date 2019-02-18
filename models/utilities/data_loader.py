@@ -43,17 +43,31 @@ def get_image_names_and_labels_from_file(file_name):
             line = line.split()
             image_list.append(line[0])
             labels.append(int(line[1]))
+    labels = np.array(labels, dtype=np.int64)
     return image_list, labels
 
 def get_train_test_data_loader(data_set_info_dict, total_folds, test_fold, has_label_distribution=False, theta=2.0):
     label_num = data_set_info_dict['label_num']
     image_names_list, labels = get_image_names_and_labels_from_file(data_set_info_dict['info_file'])
-    all_index = pickle.load(open(data_set_info_dict['index_file'], 'rb'))
-    train_index, test_index = split_data_set(all_index, total_folds, test_fold)
-    train_image_names_list = [image_names_list[i] for i in train_index]
-    train_labels = [labels[i] for i in train_index]
-    test_image_names_list = [image_names_list[i] for i in test_index]
-    test_labels = [labels[i] for i in test_index]
+    labels -= data_set_info_dict['begin_age']
+    # all_index = pickle.load(open(data_set_info_dict['index_file'], 'rb'))
+    # train_index, test_index = split_data_set(all_index, total_folds, test_fold)
+    # train_image_names_list = [image_names_list[i] for i in train_index]
+    # train_labels = [labels[i] for i in train_index]
+    # test_image_names_list = [image_names_list[i] for i in test_index]
+    # test_labels = [labels[i] for i in test_index]
+    split_index_dict = pickle.load(open(data_set_info_dict['split_index_file'], 'rb'))
+    train_image_names_list = []
+    train_labels = []
+    for fold in range(total_folds):
+        if fold != test_fold:
+            index_list = split_index_dict[fold]
+            tmp_image_list = [image_names_list[i] for i in index_list]
+            tmp_label_list = [labels[i] for i in index_list]
+            train_image_names_list.extend(tmp_image_list)
+            train_labels.extend(tmp_label_list)
+    test_image_names_list = [image_names_list[i] for i in split_index_dict[test_fold]]
+    test_labels = [labels[i] for i in split_index_dict[test_fold]]
 
     trainset = MyDataset(train_image_names_list, train_labels,
                          data_set_info_dict['image_dir'], get_transform_train(data_set_info_dict['name']),

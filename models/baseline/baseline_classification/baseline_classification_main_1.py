@@ -6,10 +6,10 @@ from utilities.data_loader import *
 from configs.configs import *
 from utilities.my_metrics import *
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "6"
+os.environ["CUDA_VISIBLE_DEVICES"] = "8"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-TEST_FOLD = 0
+TEST_FOLD = 1
 DATA_SET_NAME = 'morph'
 DATA_SET_INFO_DICT = get_dataset_info(DATA_SET_NAME)
 
@@ -28,6 +28,7 @@ if __name__ == '__main__':
     running_loss = 0.0
     for epoch in range(EPOCH_NUM):
         for step, data in enumerate(trainloader, 0):
+            print('step', step)
             images, labels = data
             images, labels = images.to(device), labels.to(device)
             optimizer.zero_grad()

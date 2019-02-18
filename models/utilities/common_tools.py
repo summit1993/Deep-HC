@@ -7,7 +7,10 @@ from configs.configs import *
 def split_data_set(all_index, total_folds, test_fold):
     samples_counts = len(all_index)
     fold_size = int(samples_counts / total_folds)
-    end_n = min(samples_counts, (test_fold + 1) * fold_size)
+    if test_fold < total_folds - 1:
+        end_n = (test_fold + 1) * fold_size
+    else:
+        end_n = samples_counts
     test_index = all_index[test_fold * fold_size: end_n]
     train_index = list(set(all_index) - set(test_index))
     return train_index, test_index
