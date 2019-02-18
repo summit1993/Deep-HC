@@ -2,7 +2,7 @@
 from utilities.my_loss import *
 import torch
 
-def pokerModel_calculate_loss(outputs, true_labels, hierarchy, gamma):
+def pokerModel_calculate_loss(outputs, true_labels, hierarchy, gamma, device):
     inners_code_list = hierarchy['inners_code_list'].copy()
     nodes = hierarchy['nodes']
     path_dict = hierarchy['paths']
@@ -26,6 +26,7 @@ def pokerModel_calculate_loss(outputs, true_labels, hierarchy, gamma):
                 ulabel = list(uset)[0]
                 uindex = children_code.index(ulabel)
                 true_distributions[i][uindex] = 1.0
-
+        true_distributions = true_distributions.to(device)
+        weight = weight.to(device)
         total_loss += My_KL_Loss_with_Weight(output, true_distributions, weight)
     return total_loss

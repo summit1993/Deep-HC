@@ -9,7 +9,7 @@ from configs.configs import *
 from utilities.my_metrics import *
 from utilities.hierarchy.structure.hierarchyReadClass import *
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "7"
+os.environ["CUDA_VISIBLE_DEVICES"] = "4"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 TEST_FOLD = 0
@@ -37,7 +37,7 @@ if __name__ == '__main__':
             images, labels = images.to(device), labels.to(device)
             optimizer.zero_grad()
             outputs = model(images)
-            loss = pokerModel_calculate_loss(outputs, labels, hierarchy, GAMMA)
+            loss = pokerModel_calculate_loss(outputs, labels, hierarchy, GAMMA, device)
             loss.backward()
             optimizer.step()
             running_loss += loss.item()
@@ -56,6 +56,7 @@ if __name__ == '__main__':
                 images, labels = images.to(device), labels.to(device)
                 outputs = model(images)
                 outputs = pokerModel_prediction(outputs, hierarchy)
+                outputs = outputs.to(device)
                 _, predicted = torch.max(outputs.data, 1)
                 mae_sum += MAE_sum(labels, predicted)
                 total_count += len(labels)
