@@ -11,7 +11,6 @@ class NodeClass:
         self.parent_code = -1
         self.depth = depth
         self.children_code = set()
-        self.is_leaf_node = False
 
     def add_child_code(self, child_code):
         self.children_code.add(child_code)

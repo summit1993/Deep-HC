@@ -8,7 +8,7 @@ class PokerModel(nn.Module):
         super(PokerModel, self).__init__()
         self.backbone = Backbone[backbone_name]()
         feature_num = self.backbone.final_feature_num
-        self.hierarchy = hierarchy.get_hierarchy_info()
+        self.hierarchy = hierarchy
         nodes = self.hierarchy['nodes']
         self.roots_code_list = self.hierarchy['roots_code_list']
         self.inners_code_list = self.hierarchy['inners_code_list']

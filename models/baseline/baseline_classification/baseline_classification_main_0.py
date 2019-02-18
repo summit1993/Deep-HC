@@ -41,6 +41,7 @@ if __name__ == '__main__':
                 print('[%d, %5d] loss: %.3f' %
                     (epoch + 1, step + 1,  running_loss / SHOW_ITERS))
                 running_loss = 0.0
+
         print('*' * 10, 'Poker Coming 2333', '*' * 10)
         with torch.no_grad():
             mae_sum = 0.0

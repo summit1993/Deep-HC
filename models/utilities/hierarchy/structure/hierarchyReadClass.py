@@ -18,7 +18,7 @@ class HierarchyReadClass:
         for line in lines:
             line = line.split()
             line = [int(a) for a in line]
-            self.paths_dict[line[-1]] = line
+            self.paths_dict[line[-1]] = set(line)
             leafs_code_set.add(line[-1])
             roots_code_set.add(line[0])
             for code in line[0:-1]:
@@ -48,6 +48,11 @@ class HierarchyReadClass:
                     self.node_dict[code] = node
 
         self.leafs_code_list = sorted(list(leafs_code_set))
+        self.leaf_index_map = {}
+        index = 0
+        for leaf_code in self.leafs_code_list:
+            self.leaf_index_map[leaf_code] = index
+            index += 1
         self.inner_nodes_code_list = sorted(list(inners_code_set))
         self.root_nodes_code_list = sorted(list(roots_code_set))
 
@@ -56,26 +61,18 @@ class HierarchyReadClass:
         for code in self.root_nodes_code_list:
             self.node_dict[code].sort_children_code()
 
-    def get_node_dict(self):
-        return self.node_dict
-
-    def get_paths_dict(self):
-        return self.paths_dict
-
-    def get_leafs_code_list(self):
-        return self.leafs_code_list
-
-    def get_inners_code_list(self):
-        return self.inner_nodes_code_list
-
-    def get_roots_code_list(self):
-        return self.root_nodes_code_list
+        node_tmp = NodeClass(-1, -1)
+        for a in self.root_nodes_code_list:
+            node_tmp.add_child_code(a)
+        node_tmp.sort_children_code()
+        self.node_dict[-1] = node_tmp
 
     def get_hierarchy_info(self):
         hierarchy_info = {}
-        hierarchy_info['roots_code_list'] = self.get_roots_code_list()
-        hierarchy_info['inners_code_list'] = self.get_inners_code_list()
-        hierarchy_info['leafs_code_list'] = self.get_leafs_code_list()
-        hierarchy_info['paths'] = self.get_paths_dict()
-        hierarchy_info['nodes'] = self.get_node_dict()
+        hierarchy_info['roots_code_list'] = self.root_nodes_code_list
+        hierarchy_info['inners_code_list'] = self.inner_nodes_code_list
+        hierarchy_info['leafs_code_list'] = self.leafs_code_list
+        hierarchy_info['paths'] = self.paths_dict
+        hierarchy_info['nodes'] = self.node_dict
+        hierarchy_info['leaf_index_map'] = self.leaf_index_map
         return hierarchy_info

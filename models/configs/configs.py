@@ -10,6 +10,7 @@ SHOW_ITERS = 10
 TOTAL_FOLDS = 5
 
 THETA = 2.0
+GAMMA = 2.0
 
 img_size=224
 images_states = {}
@@ -25,6 +26,7 @@ def get_dataset_info(data_set_name):
         info_dict['begin_age'] = 16
         root_dir = 'D:\\program\\deep_learning\\Deep-HC\\Deep-HC\\data\\morph_50000\\'
         info_dict['info_file'] = os.path.join(root_dir, 'morph_50000_info.txt')
+        info_dict['hierarchy_file'] = os.path.join(root_dir, 'morph_hierarchy.txt')
         info_dict['image_dir'] = os.path.join(root_dir, 'morph_50000_image')
         info_dict['index_file'] = os.path.join(root_dir, 'samples_index.pkl')
         info_dict['split_index_file'] = os.path.join(root_dir, 'split_index_dict.pkl')

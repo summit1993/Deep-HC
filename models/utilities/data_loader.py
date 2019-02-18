@@ -47,10 +47,11 @@ def get_image_names_and_labels_from_file(file_name):
     labels = np.array(labels, dtype=np.int64)
     return image_list, labels
 
-def get_train_test_data_loader(data_set_info_dict, total_folds, test_fold, has_label_distribution=False, theta=2.0):
+def get_train_test_data_loader(data_set_info_dict, total_folds, test_fold, has_label_distribution=False, theta=2.0, sub_begin_age=True):
     label_num = data_set_info_dict['label_num']
     image_names_list, labels = get_image_names_and_labels_from_file(data_set_info_dict['info_file'])
-    labels -= data_set_info_dict['begin_age']
+    if sub_begin_age:
+        labels -= data_set_info_dict['begin_age']
     split_index_dict = pickle.load(open(data_set_info_dict['split_index_file'], 'rb'))
     train_image_names_list = []
     train_labels = []
