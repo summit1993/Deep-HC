@@ -21,7 +21,7 @@ class HierarchyReadClass:
             self.paths_dict[line[-1]] = line
             leafs_code_set.add(line[-1])
             roots_code_set.add(line[0])
-            for code in line[1:-1]:
+            for code in line[0:-1]:
                 inners_code_set.add(code)
 
             if len(line) == 1:
