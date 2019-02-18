@@ -28,7 +28,6 @@ if __name__ == '__main__':
     running_loss = 0.0
     for epoch in range(EPOCH_NUM):
         for step, data in enumerate(trainloader, 0):
-            print('step', step)
             images, labels = data
             images, labels = images.to(device), labels.to(device)
             optimizer.zero_grad()

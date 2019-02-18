@@ -22,6 +22,7 @@ class MyDataset(Dataset):
     def __getitem__(self, item):
         image_path = os.path.join(self.image_dir, self.image_list[item])
         img = Image.open(image_path)
+        img = img.resize((img_size, img_size))
         img = self.transform(img)
         label = self.labels[item]
         if self.train:
@@ -50,12 +51,6 @@ def get_train_test_data_loader(data_set_info_dict, total_folds, test_fold, has_l
     label_num = data_set_info_dict['label_num']
     image_names_list, labels = get_image_names_and_labels_from_file(data_set_info_dict['info_file'])
     labels -= data_set_info_dict['begin_age']
-    # all_index = pickle.load(open(data_set_info_dict['index_file'], 'rb'))
-    # train_index, test_index = split_data_set(all_index, total_folds, test_fold)
-    # train_image_names_list = [image_names_list[i] for i in train_index]
-    # train_labels = [labels[i] for i in train_index]
-    # test_image_names_list = [image_names_list[i] for i in test_index]
-    # test_labels = [labels[i] for i in test_index]
     split_index_dict = pickle.load(open(data_set_info_dict['split_index_file'], 'rb'))
     train_image_names_list = []
     train_labels = []

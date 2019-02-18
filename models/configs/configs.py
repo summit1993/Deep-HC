@@ -34,7 +34,7 @@ def get_dataset_info(data_set_name):
 def get_transform_train(dataset_name):
     images_state = images_states[dataset_name]
     transform_train = transforms.Compose([
-        transforms.RandomCrop(img_size, padding=8),  # 先四周填充0，再把图像随机裁剪成img_size*img_size
+        transforms.RandomCrop(img_size, padding=4),  # 先四周填充0，再把图像随机裁剪成img_size*img_size
         transforms.RandomHorizontalFlip(),  # 图像一半的概率翻转，一半的概率不翻转
         transforms.ToTensor(),
         transforms.Normalize(std=images_state['std'], mean=images_state['mean']),
