@@ -13,7 +13,7 @@ def pokerModel_calculate_loss(outputs, true_labels, hierarchy, gamma, device):
     for code in inners_code_list:
         node = nodes[code]
         output = outputs[code]
-        output_soft = F.softmax(output, dim=1)
+        output_soft = F.softmax(output.detach(), dim=1)
         children_code = node.get_children_code()
         children_code_set = set(children_code)
         weight = torch.ones(samples_count)

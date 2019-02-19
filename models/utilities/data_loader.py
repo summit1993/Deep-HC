@@ -47,7 +47,7 @@ def get_image_names_and_labels_from_file(file_name):
     labels = np.array(labels, dtype=np.int64)
     return image_list, labels
 
-def get_train_test_data_loader(data_set_info_dict, total_folds, test_fold, has_label_distribution=False, theta=2.0, sub_begin_age=True):
+def get_train_test_data_loader(data_set_info_dict, total_folds, test_fold, has_label_distribution=False, theta=2.0, sub_begin_age=True, batch_size=BATCH_SIZE):
     label_num = data_set_info_dict['label_num']
     image_names_list, labels = get_image_names_and_labels_from_file(data_set_info_dict['info_file'])
     if sub_begin_age:
@@ -68,9 +68,9 @@ def get_train_test_data_loader(data_set_info_dict, total_folds, test_fold, has_l
     trainset = MyDataset(train_image_names_list, train_labels,
                          data_set_info_dict['image_dir'], get_transform_train(data_set_info_dict['name']),
                          True, label_num, has_label_distribution, theta)
-    trainloader = DataLoader(trainset, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
+    trainloader = DataLoader(trainset, batch_size=batch_size, shuffle=True, num_workers=0)
     testset = MyDataset(test_image_names_list, test_labels,
                         data_set_info_dict['image_dir'], get_transform_test(data_set_info_dict['name']),
                         True, label_num, has_label_distribution, theta)
-    testloader = DataLoader(testset, batch_size=BATCH_SIZE, shuffle=False, num_workers=0)
+    testloader = DataLoader(testset, batch_size=batch_size, shuffle=False, num_workers=0)
     return trainloader, testloader
