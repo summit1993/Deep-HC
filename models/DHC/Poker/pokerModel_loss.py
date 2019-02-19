@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 from utilities.my_loss import *
 import torch
+import torch.nn.functional as F
 
 def pokerModel_calculate_loss(outputs, true_labels, hierarchy, gamma, device):
     inners_code_list = hierarchy['inners_code_list'].copy()
@@ -12,6 +13,7 @@ def pokerModel_calculate_loss(outputs, true_labels, hierarchy, gamma, device):
     for code in inners_code_list:
         node = nodes[code]
         output = outputs[code]
+        output_soft = F.softmax(output, dim=1)
         children_code = node.get_children_code()
         children_code_set = set(children_code)
         weight = torch.ones(samples_count)
@@ -20,7 +22,7 @@ def pokerModel_calculate_loss(outputs, true_labels, hierarchy, gamma, device):
             true_label = true_labels[i]
             uset = path_dict[true_label.item()] & children_code_set
             if len(uset) == 0:
-                weight[i] = (1.0 - output[i][-1]) ** gamma
+                weight[i] = (1.0 - output_soft[i][-1]) ** gamma
                 true_distributions[i][-1] = 1.0
             else:
                 ulabel = list(uset)[0]

@@ -53,6 +53,7 @@ if __name__ == '__main__':
             total_count = 0.0
             for _, test_data in enumerate(testloader, 0):
                 images, labels = test_data
+                labels -= DATA_SET_INFO_DICT['begin_age']
                 images, labels = images.to(device), labels.to(device)
                 outputs = model(images)
                 outputs = pokerModel_prediction(outputs, hierarchy)
@@ -65,4 +66,4 @@ if __name__ == '__main__':
             log_file.write(str(epoch + 1) + '\t' + str(mae) + '\n')
         print('*' * 10, 'Bye, Poker', '*' * 10, '\n')
 
-        log_file.close()
+    log_file.close()
