@@ -18,6 +18,9 @@ images_states = {}
 images_states['morph'] = {}
 images_states['morph']['mean'] = [0.56726776, 0.49219804, 0.46919969]
 images_states['morph']['std'] = [0.0664503, 0.05524194, 0.05015584]
+images_states['chaLearn'] = {}
+images_states['chaLearn']['mean'] = [0.56036083, 0.42759175, 0.37782857]
+images_states['chaLearn']['std'] = [0.07101307, 0.05536717, 0.0523543 ]
 
 def get_dataset_info(data_set_name):
     info_dict = {}
@@ -32,6 +35,14 @@ def get_dataset_info(data_set_name):
         info_dict['image_dir'] = os.path.join(root_dir, 'morph_50000_image')
         info_dict['index_file'] = os.path.join(root_dir, 'samples_index.pkl')
         info_dict['split_index_file'] = os.path.join(root_dir, 'split_index_dict.pkl')
+    elif data_set_name == 'chaLearn':
+        info_dict['name'] = 'chaLearn'
+        info_dict['label_num'] = 89
+        info_dict['begin_age'] = 1
+        root_dir = 'D:\\program\\deep_learning\\Deep-HC\\Deep-HC\\data\\chaLearn\\'
+        # root_dir = '/home1/xcd/program/Deep-HC/data/chaLearn'
+        info_dict['info_file'] = os.path.join(root_dir, 'chaLearn_info.txt')
+        info_dict['hierarchy_file'] = os.path.join(root_dir, 'chaLearn_hierarchy.txt')
     return info_dict
 
 
