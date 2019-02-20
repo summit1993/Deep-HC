@@ -12,8 +12,8 @@ def change_label_2_label_distribution(label, label_num, theta):
 
 if __name__ == '__main__':
     label = 3
-    label_num = 20
-    theta = 2.0
+    label_num = 5
+    theta = 1.0
     label_distribution = change_label_2_label_distribution(label, label_num, theta)
     print(label_distribution)
     label_distribution_tensor = torch.from_numpy(label_distribution)

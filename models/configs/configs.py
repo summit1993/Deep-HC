@@ -3,13 +3,14 @@ import torchvision.transforms as transforms
 import os
 
 EPOCH_NUM = 50
-BATCH_SIZE = 128
-BACKBONE_NAME = 'resnet-50'
+BATCH_SIZE = 256
+BACKBONE_NAME = 'resnet-34'
 SHOW_ITERS = 10
 
 TOTAL_FOLDS = 5
 
 THETA = 2.0
+POKER_THETAS = [0.5, 2.0]
 GAMMA = 2.0
 
 img_size=224
