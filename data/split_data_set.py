@@ -40,6 +40,6 @@ def split_data_set(data_file_name, total_fold):
 
 
 if __name__ == '__main__':
-    split_index_dict = split_data_set('morph_50000/morph_50000_info.txt', 5)
-    pickle.dump(split_index_dict, open('./morph_50000/split_index_dict.pkl', 'wb'))
+    split_index_dict = split_data_set('chaLearn/chaLearn_info.txt', 5)
+    pickle.dump(split_index_dict, open('./chaLearn/split_index_dict.pkl', 'wb'))
 

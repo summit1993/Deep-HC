@@ -22,7 +22,7 @@ class MyDataset(Dataset):
     def __getitem__(self, item):
         image_path = os.path.join(self.image_dir, self.image_list[item])
         img = Image.open(image_path)
-        img = img.resize((img_size, img_size))
+        # img = img.resize((img_size, img_size))
         img = self.transform(img)
         label = self.labels[item]
         if self.train:
@@ -68,9 +68,9 @@ def get_train_test_data_loader(data_set_info_dict, total_folds, test_fold, has_l
     trainset = MyDataset(train_image_names_list, train_labels,
                          data_set_info_dict['image_dir'], get_transform_train(data_set_info_dict['name']),
                          True, label_num, has_label_distribution, theta)
-    trainloader = DataLoader(trainset, batch_size=batch_size, shuffle=True, num_workers=0)
+    trainloader = DataLoader(trainset, batch_size=batch_size, shuffle=True, num_workers=6)
     testset = MyDataset(test_image_names_list, test_labels,
                         data_set_info_dict['image_dir'], get_transform_test(data_set_info_dict['name']),
                         True, label_num, has_label_distribution, theta)
-    testloader = DataLoader(testset, batch_size=batch_size, shuffle=False, num_workers=0)
+    testloader = DataLoader(testset, batch_size=batch_size, shuffle=False, num_workers=6)
     return trainloader, testloader

@@ -38,6 +38,11 @@ def move_image(file_name, img_dir, save_img_dir, img_size=224):
             img.save(os.path.join(save_img_dir, line[0]), quality=95, subsampling=0)
 
 if __name__ == '__main__':
-    # move_image('./charLearn/16_valid_gt.txt', './charLearn/16_val', './charLearn/16_val_resize')
-    results = calculate_rgb_mean_and_std('charLearn/16_all_resize')
+    # # move_image('./charLearn/16_valid_gt.txt', './charLearn/16_val', './charLearn/16_val_resize')
+    # results = calculate_rgb_mean_and_std('charLearn/16_all_resize')
+    # print(results)
+
+    # move_image('morph_50000_info.txt', 'D:\\program\\deep_learning\\Deep-HC\\Deep-HC\\data\\morph_50000\\morph_50000_image',
+    #            'morph_50000_image_resized')
+    results = calculate_rgb_mean_and_std('morph_50000_image_resized')
     print(results)
