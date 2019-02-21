@@ -53,7 +53,7 @@ def baseline_LDL_process(model, trainloader, testloader, optimizer, epoch_num, d
                 'optimizer_state_dict': optimizer.state_dict()
             }, os.path.join(model_save_dir, 'checkpoint_' + str(epoch)))
 
-        print('*' * 10, 'Begin to test', '*' * 10)
+        print('*' * 10, 'FL Begin to test', '*' * 10)
         with torch.no_grad():
             mae_sum = 0.0
             total_count = 0.0
