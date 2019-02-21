@@ -1,11 +1,11 @@
 # -*- coding: UTF-8 -*-
 from baseline.baseline_regression.baseline_regression_train import *
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "11"
+os.environ["CUDA_VISIBLE_DEVICES"] = "6"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 data_set_name = 'morph'
-test_folds = [2, 3, 4]
+test_folds = [0, 1]
 backbone_name = BACKBONE_NAME
 total_folds = TOTAL_FOLDS
 epoch_num = EPOCH_NUM

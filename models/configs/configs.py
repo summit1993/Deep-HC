@@ -47,6 +47,7 @@ def get_dataset_info(data_set_name):
         info_dict['hierarchy_file'] = os.path.join(root_dir, 'chaLearn_hierarchy.txt')
         info_dict['image_dir'] = os.path.join(root_dir, 'chaLearn_16_image')
         info_dict['split_index_file'] = os.path.join(root_dir, 'split_index_dict.pkl')
+        info_dict['HLDL'] = os.path.join(root_dir, 'chaLearn_HLDL_theta.pkl')
     return info_dict
 
 
