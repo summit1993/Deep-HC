@@ -52,7 +52,7 @@ def calculate_rgb_mean_and_std(img_dir, img_size=224):
     img_std = img_std / (img_count * img_size * img_size)
     return img_mean, img_std
 
-def get_dataset_info(imdb_file_name, save_name):
+def get_dataset_info_from_mat(imdb_file_name, save_name):
     data = scipy.io.loadmat(imdb_file_name)
     labels = data['images']['label'][0][0][0]
     img_names = data['images']['name'][0][0][0]
