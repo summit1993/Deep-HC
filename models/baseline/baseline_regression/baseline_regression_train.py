@@ -54,7 +54,7 @@ def baseline_regression_process(model, trainloader, testloader, optimizer, epoch
                 'epoch': epoch,
                 'model_state_dict': model.state_dict(),
                 'optimizer_state_dict': optimizer.state_dict()
-            }, os.path.join(model_save_dir, 'checkpoint_' + str(epoch)))
+            }, os.path.join(model_save_dir, 'checkpoint_' + str(epoch) + '.tar'))
 
         print('*' * 10, 'FR Begin to test', '*' * 10)
         with torch.no_grad():
