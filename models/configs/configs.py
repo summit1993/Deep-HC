@@ -29,6 +29,8 @@ def get_dataset_info(data_set_name):
         info_dict['name'] = 'morph'
         info_dict['label_num'] = 62
         info_dict['begin_age'] = 16
+        info_dict['min_age'] = 16
+        info_dict['max_age'] = 77
         # root_dir = 'D:\\program\\deep_learning\\Deep-HC\\Deep-HC\\data\\morph_50000\\'
         root_dir = '/home1/xcd/program/Deep-HC/data/morph_50000'
         info_dict['info_file'] = os.path.join(root_dir, 'morph_50000_info.txt')
@@ -41,6 +43,8 @@ def get_dataset_info(data_set_name):
         info_dict['name'] = 'chaLearn'
         info_dict['label_num'] = 89
         info_dict['begin_age'] = 1
+        info_dict['min_age'] = 1
+        info_dict['max_age'] = 89
         # root_dir = 'D:\\program\\deep_learning\\Deep-HC\\Deep-HC\\data\\chaLearn\\'
         root_dir = '/home1/xcd/program/Deep-HC/data/chaLearn'
         info_dict['info_file'] = os.path.join(root_dir, 'chaLearn_info.txt')

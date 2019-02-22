@@ -72,5 +72,5 @@ def get_train_test_data_loader(data_set_info_dict, total_folds, test_fold, has_l
     testset = MyDataset(test_image_names_list, test_labels,
                         data_set_info_dict['image_dir'], get_transform_test(data_set_info_dict['name']),
                         True, label_num, has_label_distribution, theta)
-    testloader = DataLoader(testset, batch_size=batch_size, shuffle=False, num_workers=6)
+    testloader = DataLoader(testset, batch_size=batch_size, shuffle=False, num_workers=0)
     return trainloader, testloader

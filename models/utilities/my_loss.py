@@ -14,3 +14,8 @@ def My_KL_Loss_with_Weight(predictions, true_distributions, weight):
     KL = (KL * weight).sum()
     KL = KL / predictions.shape[0]
     return KL
+
+def L1_loss(outputs, true_labels):
+    error_sum = sum(abs(true_labels - outputs))
+    error_mean = error_sum / len(outputs)
+    return error_mean
