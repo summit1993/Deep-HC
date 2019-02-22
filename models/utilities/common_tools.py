@@ -16,6 +16,10 @@ def split_data_set(all_index, total_folds, test_fold):
     return train_index, test_index
 
 def change_label_2_label_distribution(label, label_num, theta):
+    if theta == 0:
+        A = np.zeros(label_num)
+        A[label] = 1.0
+        return A
     A = np.arange(label_num)
     A -= label
     item1 = 1.0 / ((2.0 * np.pi) ** 0.5 * theta)

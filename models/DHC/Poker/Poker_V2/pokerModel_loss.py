@@ -19,7 +19,6 @@ def pokerModel_calculate_loss(outputs, true_labels, hierarchy,
         total_loss += My_KL_Loss(output, true_distributions)
     return total_loss
 
-
 def pokerModel_calculate_loss_with_weigt(outputs, true_labels, hierarchy,
                               label_HLDL_dict, device, bs):
     samples_count = len(true_labels)

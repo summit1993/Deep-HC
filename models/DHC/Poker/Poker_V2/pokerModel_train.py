@@ -7,7 +7,7 @@ from DHC.Poker.Poker_V2.pokerModel_loss import *
 from utilities.data_loader import *
 from utilities.my_metrics import *
 
-def baseline_LDL_train(test_fold, total_folds, data_set_info_dict, hierarchy, label_HLDL_dict,
+def Poker_LDL_train(test_fold, total_folds, data_set_info_dict, hierarchy, label_HLDL_dict,
                        backbone_name, device, epoch_num, results_save_dir, model_save_dir,
                        use_wight=False, bs=[0.1, 0.01]):
     data_set_name = data_set_info_dict['name']

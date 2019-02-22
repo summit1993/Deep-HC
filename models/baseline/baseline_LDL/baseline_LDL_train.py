@@ -8,10 +8,10 @@ from utilities.my_loss import *
 import pickle
 
 def baseline_LDL_train(test_fold, total_folds, data_set_info_dict,
-                       backbone_name, theta, device, epoch_num, results_save_dir, model_save_dir):
+                       backbone_name, theta, device, epoch_num, results_save_dir, model_save_dir, has_std=False):
     data_set_name = data_set_info_dict['name']
     trainloader, testloader = get_train_test_data_loader(data_set_info_dict,
-                                                         total_folds, test_fold, True, theta)
+                                                         total_folds, test_fold, True, theta, has_std=has_std)
     model = BaselineLDLModel(backbone_name, data_set_info_dict['label_num'])
     model = model.to(device)
     optimizer = optim.Adam(model.parameters(), lr=0.001)
