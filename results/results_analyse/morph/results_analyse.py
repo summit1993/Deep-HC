@@ -41,15 +41,15 @@ def calculate_mae_by_exp(dir_name):
     return mae_sum / len(file_list)
 
 if __name__ == '__main__':
-    dir_name = 'results/FC'
-    mae_mean_exp = calculate_mae_by_exp(dir_name)
-    print(min(mae_mean_exp))
-    mae_mean_max = calculate_mae(dir_name)
-    print(min(mae_mean_max))
+    # dir_name = 'results/FC'
+    # mae_mean_exp = calculate_mae_by_exp(dir_name)
+    # print(min(mae_mean_exp))
+    # mae_mean_max = calculate_mae(dir_name)
+    # print(min(mae_mean_max))
     #
-    # poker_dir_name  = 'results/poker/no_weight'
-    # poker_mean_max = calculate_mae(poker_dir_name)
-    # print(min(poker_mean_max))
+    poker_dir_name  = 'results/poker/no_weight'
+    poker_mean_max = calculate_mae(poker_dir_name)
+    print(min(poker_mean_max))
 
     # regression_dir_name = 'results/FR_V2/L1'
     # regression_mean = calculate_mae(regression_dir_name)

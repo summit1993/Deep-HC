@@ -2,7 +2,7 @@
 from DHC.Poker.Poker_V2.pokerModel_train import *
 from utilities.hierarchy.structure.hierarchyReadClass import *
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "6"
+os.environ["CUDA_VISIBLE_DEVICES"] = "4"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 data_set_name = 'chaLearn'
@@ -22,5 +22,5 @@ for test_fold in test_folds:
     print('*' * 20, 'Poker begin to deal the fold: ', test_fold, '*' * 20)
     Poker_LDL_train(test_fold, total_folds, data_set_info_dict, hierarchy,
                        label_HLDL_dict, backbone_name, device, epoch_num,
-                       'results/chaLearn', 'models/chaLearn', use_wight=True, bs=bs)
+                       'results/chaLearn', 'models/chaLearn', use_wight=True, bs=bs, is_hard=True)
     print('*' * 20, 'finish dealt the fold: ', test_fold, '*' * 20, '\n'*3)

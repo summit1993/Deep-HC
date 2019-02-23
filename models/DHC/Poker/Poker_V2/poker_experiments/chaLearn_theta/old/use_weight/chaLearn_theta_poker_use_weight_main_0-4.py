@@ -2,7 +2,7 @@
 from DHC.Poker.Poker_V2.pokerModel_train import *
 from utilities.hierarchy.structure.hierarchyReadClass import *
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "6"
+os.environ["CUDA_VISIBLE_DEVICES"] = "4"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 data_set_name = 'chaLearn'

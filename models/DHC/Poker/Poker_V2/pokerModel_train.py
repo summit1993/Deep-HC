@@ -9,7 +9,7 @@ from utilities.my_metrics import *
 
 def Poker_LDL_train(test_fold, total_folds, data_set_info_dict, hierarchy, label_HLDL_dict,
                        backbone_name, device, epoch_num, results_save_dir, model_save_dir,
-                       use_wight=False, bs=[0.1, 0.01]):
+                       use_wight=False, bs=[0.1, 0.01], is_hard=False):
     data_set_name = data_set_info_dict['name']
     trainloader, testloader = get_train_test_data_loader(data_set_info_dict,
                                                          total_folds, test_fold,
@@ -28,10 +28,10 @@ def Poker_LDL_train(test_fold, total_folds, data_set_info_dict, hierarchy, label
     begin_age = data_set_info_dict['begin_age']
 
     poker_model_process(model, trainloader, testloader, optimizer, epoch_num, device,
-                        hierarchy, label_HLDL_dict, begin_age, log_file_name, model_save_dir, use_wight, bs)
+                        hierarchy, label_HLDL_dict, begin_age, log_file_name, model_save_dir, use_wight, bs, is_hard)
 
 def poker_model_process(model, trainloader, testloader, optimizer, epoch_num, device,
-                        hierarchy, label_HLDL_dict, begin_age, log_file_name, model_save_dir, use_weight, bs):
+                        hierarchy, label_HLDL_dict, begin_age, log_file_name, model_save_dir, use_weight, bs, is_hard):
     results = {}
     results['MAE'] = []
     results['outputs'] = []
@@ -45,7 +45,7 @@ def poker_model_process(model, trainloader, testloader, optimizer, epoch_num, de
             optimizer.zero_grad()
             outputs = model(images)
             if use_weight:
-                loss = pokerModel_calculate_loss_with_weigt(outputs, labels, hierarchy, label_HLDL_dict, device, bs)
+                loss = pokerModel_calculate_loss_with_weigt(outputs, labels, hierarchy, label_HLDL_dict, device, bs, is_hard)
             else:
                 loss = pokerModel_calculate_loss(outputs, labels, hierarchy, label_HLDL_dict, device)
             loss.backward()
