@@ -8,6 +8,7 @@ from utilities.my_metrics import *
 def calculate_mae(dir_name):
     mae_sum = 0.0
     file_list = os.listdir(dir_name)
+    # file_list = file_list[0:4]
     for file in file_list:
         result = pickle.load(open(os.path.join(dir_name, file), 'rb'))
         mae_sum += np.array(result['MAE'])
@@ -41,15 +42,17 @@ def calculate_mae_by_exp(dir_name):
     return mae_sum / len(file_list)
 
 if __name__ == '__main__':
-    dir_name = 'results/FC'
-    mae_mean_exp = calculate_mae_by_exp(dir_name)
-    print(min(mae_mean_exp))
-    mae_mean_max = calculate_mae(dir_name)
-    print(min(mae_mean_max))
+    # dir_name = 'results/FC'
+    # mae_mean_exp = calculate_mae_by_exp(dir_name)
+    # print(min(mae_mean_exp))
+    # mae_mean_max = calculate_mae(dir_name)
+    # print(min(mae_mean_max))
     #
-    # poker_dir_name  = 'results/poker/no_weight'
-    # poker_mean_max = calculate_mae(poker_dir_name)
-    # print(min(poker_mean_max))
+    poker_dir_name  = 'results/poker/weight_down_N'
+    # poker_mean_exp = calculate_mae_by_exp(poker_dir_name)
+    # print(min(poker_mean_exp))
+    poker_mean_max = calculate_mae(poker_dir_name)
+    print(min(poker_mean_max))
 
     # regression_dir_name = 'results/FR_V2/L1'
     # regression_mean = calculate_mae(regression_dir_name)

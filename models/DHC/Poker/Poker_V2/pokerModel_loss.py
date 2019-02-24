@@ -92,6 +92,7 @@ def pokerModel_calculate_loss_with_weigt(outputs, true_labels, hierarchy,
                               label_HLDL_dict, device, bs, is_hard):
     que = queue.Queue()
     total_loss = 0.0
+    count = 0.0
     samples_count = len(true_labels)
     nodes = hierarchy['nodes']
     path_dict = hierarchy['paths']
@@ -122,7 +123,8 @@ def pokerModel_calculate_loss_with_weigt(outputs, true_labels, hierarchy,
             if code != -1:
                 uset = path_dict[true_label.item()] & children_code_set
                 if len(uset) > 0:
-                    weight[i] = 2.0 - weight[i]
+                    # weight[i] = 2.0 - weight[i]
+                    weight[i] = 1.0
 
         for j in range(children_count):
             child_score = code_score + output_soft_log[:, j]
@@ -132,4 +134,6 @@ def pokerModel_calculate_loss_with_weigt(outputs, true_labels, hierarchy,
         true_distributions = true_distributions.to(device)
         weight = weight.to(device)
         total_loss += My_KL_Loss_with_Weight(output, true_distributions, weight)
+        count += 1.0
+    total_loss = total_loss / count
     return total_loss
